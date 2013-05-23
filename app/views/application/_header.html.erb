@@ -1,0 +1,41 @@
+<div class="navbar-inner">
+  <div class="container">
+
+    <div class="pull-right">
+      <ul class="nav">
+        <li>
+          <%= link_to [:new, :photo] do %>
+            <i class="icon-edit"></i>
+            New
+          <% end %>
+        </li>
+
+      </ul>
+
+      <ul id="user-menu", class="nav">
+        <% if logged_in? %>
+          <li class="dropdown">
+            <%= link_to "#", class: 'dropdown-toggle menu-item', data: {toggle: 'dropdown'} do %>
+              <%#= image_tag current_user.avatar %>
+              <span><%= current_user.name %></span>
+              <b class="caret"></b>
+            <% end %>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+              <%= button_to :logout, class: 'btn-link', method: 'delete' do %>
+                <i class="link-icon icon-off"></i>
+                <span>Log Out</span>
+              <% end %>
+            </ul>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to :login, class: 'btn-link', method: 'post' do %>
+              <i class="link-icon icon-facebook-sign"></i>
+              <span>Login</span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

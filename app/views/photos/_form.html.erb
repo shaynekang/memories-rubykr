@@ -1,0 +1,36 @@
+<%= form_for @photo, html: {class: 'photo-form form-horizontal row-fluid'} do |f| %>
+  <%= f.error_messages %>
+
+  <fieldset>
+    <div id="legend">
+      <legend>Photo Form</legend>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :image, class: 'control-label' %>
+      <div class="controls">
+        <%= f.file_field :image, class: 'input-xlarge' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :comment, class: 'control-label' %>
+      <div class="controls">
+        <%= f.text_area :comment, class: 'input-xlarge' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :tag_list, class: 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :tag_list, class: 'input-xlarge' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="controls">
+        <%= f.submit class: 'btn btn-success' %>
+      </div>
+    </div>
+  </fieldset>
+<% end %>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Memories of Ruby Korea</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<% if notice %>
+  <div id="notice" class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <%= notice %>
+  </div>
+<% end %>
+
+<div id="container">
+  <div id="header" class="navbar">
+    <%= render 'header' %>
+  </div>
+
+  <div id="content">
+    <%= yield %>
+  </div>
+</div>
+
+</body>
+</html>

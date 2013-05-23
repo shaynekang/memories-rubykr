@@ -1,0 +1,9 @@
+<div id="photo-list", class="row">
+  <% @photos.each do |photo| %>
+    <%= div_for photo, class: 'photo-grid span2' do %>
+      <%= link_to photo do %>
+        <%= image_tag photo.image.grid, class: 'thumbnail' %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
