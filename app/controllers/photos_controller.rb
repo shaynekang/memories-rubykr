@@ -12,24 +12,13 @@ class PhotosController < ApplicationController
 
   def new
     @photo = Photo.new
+    @form = PhotoForm.new(@photo)
   end
 
   def create
-    tag_list = params[:photo].delete("tag_list")
-
-    @photo = current_user.photos.build(photo_params)
-    @photo.save!
-
-    @photo.tags.clear
-    tags = tag_list.split(",").map{|tag| tag.strip}
-    tags.each do |tag|
-      resource = Tag.find_or_create_by_name(tag)
-      @photo.tags << resource unless @photo.tags.exists?(resource)
-    end
-
-    @graph = Koala::Facebook::API.new(@photo.owner.token)
-    @graph.put_picture("public/#{@photo.image.url}", {"message" => "#{@photo.comment}"})
-
+    @photo = current_user.photos.build
+    @form = PhotoForm.new(@photo)
+    @form.save!(photo_params)
     redirect_to @photo, notice: "Successfully created Photo"
   rescue ActiveRecord::RecordInvalid
     render 'new'
@@ -37,21 +26,13 @@ class PhotosController < ApplicationController
 
   def edit
     @photo = Photo.find_by_slug!(params[:id])
+    @form = PhotoForm.new(@photo)
   end
 
   def update
-    tag_list = params[:photo].delete("tag_list")
-
     @photo = Photo.find_by_slug!(params[:id])
-    @photo.update_attributes!(photo_params)
-
-    @photo.tags.clear
-    tags = tag_list.split(",").map{|tag| tag.strip}
-    tags.each do |tag|
-      resource = Tag.find_or_create_by_name(tag)
-      @photo.tags << resource unless @photo.tags.exists?(resource)
-    end
-
+    @form = PhotoForm.new(@photo)
+    @form.save!(photo_params)
     redirect_to @photo, notice: "Successfully updated Photo"
   rescue ActiveRecord::RecordInvalid
     render 'edit'
@@ -65,7 +46,7 @@ class PhotosController < ApplicationController
 
 private
   def photo_params
-    params.require(:photo).permit(:comment, :image, :tag_list)
+    params.require(:photo_form).permit(:comment, :image, :tag_list)
   end
 
   def redirect_unless_me
