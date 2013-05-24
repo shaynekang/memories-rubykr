@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   def create
     auth = request.env['omniauth.auth']
 
-    user = User.find_or_create_with_omniauth(auth)
+    signup = Signup.new
+    user = signup.authenticate!(auth)
 
     session[:user_id] = user.id
     redirect_to :root, notice: "Successfully Signed in!"
