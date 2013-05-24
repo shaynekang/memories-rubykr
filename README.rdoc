@@ -1,28 +1,15 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* 이 소스는 2013년 5월 24일(목)에 있었던 페이스북 루비 그룹스 5월 발표자료의 예제입니다.
+* 발표를 들으셨던 분들은 커밋 로그(Commits)를 살펴보시고 리펙토링 과정을 천천히 살펴보시면 됩니다.
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+== Setting
+
+* Attention: 시드(Seed) 데이터에 다수의 사진이 포함되어 있기 때문에, Cloning과 Seeding에 시간이 소요됩니다.
+
+* git clone git://github.com/sungheeekang/memories-rubykr.git
+* cd memories-rubykr
+* bundle
+* rake db:migrate
+* rake db:seed (오래 걸립니다)
