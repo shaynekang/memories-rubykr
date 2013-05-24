@@ -15,4 +15,20 @@ class User < ActiveRecord::Base
   def facebook_link
     "http://www.facebook.com/#{nickname}"
   end
+
+  def self.find_or_create_with_omniauth(auth)
+    user = where(provider: auth['provider'], uid: auth['uid']).first_or_create
+
+    user.name = auth['info']['name'] unless auth['info']['name'].blank?
+    user.nickname = auth['info']['nickname'] unless auth['info']['nickname'].blank?
+    user.nickname = auth['extra']['username'] unless auth['extra']['username'].blank?
+    user.email = auth['info']['email'] unless auth['info']['email'].blank?
+    user.avatar = auth['info']['image'] unless auth['info']['image'].blank?
+
+    user.token = auth['credentials']['token']
+
+    user.save!
+
+    user
+  end
 end
