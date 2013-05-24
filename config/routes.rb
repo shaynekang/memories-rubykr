@@ -3,8 +3,8 @@ MemoriesRubykr::Application.routes.draw do
 
   resources :photos do
     member do
-      post 'like', action: 'like', :as => :like
-      delete 'like', action: 'unlike', :as => :unlike
+      post 'like' => "likes#create", :as => :like
+      delete 'like' => "likes#destroy", :as => :unlike
     end
   end
 

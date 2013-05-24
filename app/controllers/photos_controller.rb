@@ -63,18 +63,6 @@ class PhotosController < ApplicationController
     redirect_to :root, notice: "Photo was successfully destroyed"
   end
 
-  def like
-    photo = Photo.find_by_slug!(params[:id])
-    current_user.liked_photos << photo
-    redirect_to photo, notice: "Successfully liked Photo"
-  end
-
-  def unlike
-    photo = Photo.find_by_slug!(params[:id])
-    current_user.liked_photos.destroy(photo)
-    redirect_to photo, notice: "Successfully unliked Photo"
-  end
-
 private
   def photo_params
     params.require(:photo).permit(:comment, :image, :tag_list)
