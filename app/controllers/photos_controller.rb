@@ -7,7 +7,7 @@ class PhotosController < ApplicationController
   end
 
   def show
-    @photo = Photo.find_by_slug!(params[:id])
+    @photo = Photo.find_by_slug!(params[:id]).decorate
   end
 
   def new

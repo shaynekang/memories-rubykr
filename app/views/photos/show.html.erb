@@ -1,17 +1,12 @@
 <%= div_for @photo, class: 'photo-detail' do %>
-  <% unless @photo.image.blank? %>
-    <%= image_tag @photo.image, class: 'photo' %>
-  <% else %>
-    <%= image_tag "noimage.png", class: 'photo' %>
-  <% end %>
-
+  <%= @photo.image %>
 
   <% unless @photo.comment.blank? %>
     <div id="comment">
       <p>
         <%= @photo.comment %>
         <span>&nbsp-&nbsp</span>
-        <%= link_to @photo.owner.name, @photo.owner.facebook_link, target: '_blank' %>
+        <%= @photo.owner_name %>
       </p>
     </div>
   <% end %>
@@ -26,37 +21,16 @@
 
   <div id="menu">
     <ul id="like-menu">
-      <% if current_user and current_user.liked_photos.exists?(@photo) %>
-        <li>
-          <%= button_to [:unlike, @photo], method: 'delete', class: 'btn' do %>
-            <i class="icon-thumbs-down"></i>
-            Unlike
-          <% end %>
-        </li>
+      <% if @photo.owner?(current_user) %>
+        <li><%= @photo.unlike %></li>
       <% else %>
-        <li>
-          <%= button_to [:like, @photo], class: 'btn btn-primary' do %>
-            <i class="icon-thumbs-up"></i>
-            Like
-          <% end %>
-        </li>
+        <li><%= @photo.like %></li>
       <% end %>
     </ul>
 
     <ul id="photo-menu">
-
-      <li>
-        <%= link_to [:edit, @photo], class: 'btn btn-warning' do %>
-          <i class="icon-edit"></i>
-          Edit
-        <% end %>
-      </li>
-      <li>
-        <%= button_to @photo, method: 'delete', data: {confirm: 'Are you sure?'}, class: 'btn btn-danger' do %>
-          <i class="icon-remove"></i>
-          Destroy
-        <% end %>
-      </li>
+      <li><%= @photo.edit %></li>
+      <li><%= @photo.destroy %></li>
       <li>
         <%= link_to :root, class: 'btn btn-inverse' do %>
           <i class="icon-arrow-left"></i>
