@@ -15,12 +15,4 @@ class User < ActiveRecord::Base
   def facebook_link
     "http://www.facebook.com/#{nickname}"
   end
-
-  def like(photo)
-    liked_photos << photo
-  end
-
-  def unlike(photo)
-    liked_photos.destroy(photo)
-  end
 end
