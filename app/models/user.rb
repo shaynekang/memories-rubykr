@@ -31,4 +31,12 @@ class User < ActiveRecord::Base
 
     user
   end
+
+  def like(photo)
+    liked_photos << photo
+  end
+
+  def unlike(photo)
+    liked_photos.destroy(photo)
+  end
 end
